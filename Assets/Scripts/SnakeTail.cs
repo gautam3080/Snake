@@ -4,19 +4,25 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class SnakeTail : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
-    public SnakeTail childTail;
+    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer SpriteRenderer { 
+        get { 
+        
+            if(_spriteRenderer == null)
+            {
+                _spriteRenderer = GetComponent<SpriteRenderer>();
+            }
+            return _spriteRenderer;
+        } }
+    private SnakeTail _childTail;
+    private SnakeTail ChildTail;
     Path myPath = new Path();
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        myPath = new Path();
-    }
+    
 
     public void AddChildTail(SnakeTail child)
     {
-        childTail = child;
-        myPath.outPosition = childTail.SetPostion;
+        _childTail = child;
+        myPath.outPosition = _childTail.SetPostion;
     }
 
     public void SetPostion(Vector3 postion)
@@ -26,11 +32,11 @@ public class SnakeTail : MonoBehaviour
     }
     public void SetColor(Color color)
     {
-        spriteRenderer.color = color;
+        SpriteRenderer.color = color;
     }
     public void SetOrder(int order)
     {
-        spriteRenderer.sortingOrder = order;
+        SpriteRenderer.sortingOrder = order;
     }
 }
 

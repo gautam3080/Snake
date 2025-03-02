@@ -57,16 +57,18 @@ public class PlayerController : MonoBehaviour
             UpDir = 1; // up move permission allowed
             moveDirection = new Vector3(0, DownDir, 0);
         }
-        var prevPos = transform.position;
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        if(prevPos != transform.position)
-        {
-
-            myPath.AddPostion(transform.position);
-        }
+        
 
     }
-
+    private void FixedUpdate()
+    {
+        var prevPos = transform.position;
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        if (prevPos != transform.position)
+        {
+            myPath.AddPostion(transform.position);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "RightBoundary")
@@ -110,7 +112,7 @@ public class PlayerController : MonoBehaviour
             myTailChild = tails[0];
             myPath.outPosition = myTailChild.SetPostion;
         }
-            
+        tail.gameObject.SetActive(true);  
     }
 
     public void ChangeTailsColor(Color color)
